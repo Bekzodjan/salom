@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react'
-import call from './utils/request'
-import {Link,useNavigate,Route,Routes} from 'react-router-dom'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import Home from './Home'
-import Posts from './Posts'
-import Todos from './Todos'
+import {Routes, Route, useNavigate, useLocation} from 'react-router-dom'
+import Login from './Login'
+import Cabinet from './Cabinet'
 
 function App() {
-  
+  const location = useLocation()
+  const navigate = useNavigate()
+  useEffect(() => {
+    setTimeout(() => {
+      localStorage.removeItem("token")
+      navigate('/login')
+    }, 60000);
+    }, [location.pathname]);    
+
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/posts' element={<Posts/>}/>
-        <Route path='/todos' element={<Todos/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/' element={<Cabinet/>}/>
       </Routes>
-
     </>
   )
 }
